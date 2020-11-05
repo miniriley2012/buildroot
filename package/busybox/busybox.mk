@@ -7,8 +7,8 @@
 BUSYBOX_VERSION = 1.32.0
 BUSYBOX_SITE = http://www.busybox.net/downloads
 BUSYBOX_SOURCE = busybox-$(BUSYBOX_VERSION).tar.bz2
-BUSYBOX_LICENSE = GPL-2.0
-BUSYBOX_LICENSE_FILES = LICENSE
+BUSYBOX_LICENSE = GPL-2.0, bzip2-1.0.4
+BUSYBOX_LICENSE_FILES = LICENSE archival/libarchive/bz/LICENSE
 
 define BUSYBOX_HELP_CMDS
 	@echo '  busybox-menuconfig     - Run BusyBox menuconfig'
@@ -42,6 +42,7 @@ BUSYBOX_DEPENDENCIES = \
 	$(if $(BR2_PACKAGE_IFENSLAVE),ifenslave) \
 	$(if $(BR2_PACKAGE_IFPLUGD),ifplugd) \
 	$(if $(BR2_PACKAGE_IFUPDOWN),ifupdown) \
+	$(if $(BR2_PACKAGE_IPCALC),ipcalc) \
 	$(if $(BR2_PACKAGE_IPROUTE2),iproute2) \
 	$(if $(BR2_PACKAGE_IPUTILS),iputils) \
 	$(if $(BR2_PACKAGE_KMOD),kmod) \
@@ -207,6 +208,13 @@ define BUSYBOX_INSTALL_UDHCPC_SCRIPT
 	fi
 endef
 
+define BUSYBOX_INSTALL_ZCIP_SCRIPT
+	if grep -q CONFIG_ZCIP=y $(@D)/.config; then \
+		$(INSTALL) -m 0755 -D $(@D)/examples/zcip.script \
+			$(TARGET_DIR)/usr/share/zcip/default.script; \
+	fi
+endef
+
 ifeq ($(BR2_INIT_BUSYBOX),y)
 
 define BUSYBOX_SET_INIT
@@ -365,6 +373,7 @@ define BUSYBOX_INSTALL_TARGET_CMDS
 	$(BUSYBOX_INSTALL_INDIVIDUAL_BINARIES)
 	$(BUSYBOX_INSTALL_INITTAB)
 	$(BUSYBOX_INSTALL_UDHCPC_SCRIPT)
+	$(BUSYBOX_INSTALL_ZCIP_SCRIPT)
 	$(BUSYBOX_INSTALL_MDEV_CONF)
 endef
 

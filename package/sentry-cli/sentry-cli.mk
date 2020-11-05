@@ -9,9 +9,11 @@ SENTRY_CLI_SITE = $(call github,getsentry,sentry-cli,$(SENTRY_CLI_VERSION))
 SENTRY_CLI_LICENSE = BSD-3-clause
 SENTRY_CLI_LICENSE_FILES = LICENSE
 
-SENTRY_CLI_DEPENDENCIES = host-rustc
+HOST_SENTRY_CLI_DEPENDENCIES = host-rustc host-zlib
 
-HOST_SENTRY_CLI_CARGO_ENV = CARGO_HOME=$(HOST_DIR)/share/cargo
+HOST_SENTRY_CLI_CARGO_ENV = \
+	CARGO_HOME=$(HOST_DIR)/share/cargo \
+	RUSTFLAGS="$(addprefix -C link-args=,$(HOST_LDFLAGS))"
 
 HOST_SENTRY_CLI_CARGO_OPTS = \
 	--release \
