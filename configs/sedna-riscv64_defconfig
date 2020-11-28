@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Buildroot 2020.11-rc1-14-gbfbbf1cb79 Configuration
+# Buildroot 2020.11-rc1-25-gbca3ed269c-dirty Configuration
 #
 BR2_HAVE_DOT_CONFIG=y
 BR2_HOST_GCC_AT_LEAST_4_9=y
@@ -1096,7 +1096,7 @@ BR2_PACKAGE_PROVIDES_HOST_LUAINTERPRETER="host-lua"
 # BR2_PACKAGE_LUA_BASEXX is not set
 # BR2_PACKAGE_LUA_BINARYHEAP is not set
 # BR2_PACKAGE_LUA_BIT32 is not set
-# BR2_PACKAGE_LUA_CJSON is not set
+BR2_PACKAGE_LUA_CJSON=y
 # BR2_PACKAGE_LUA_COAT is not set
 
 #
@@ -1154,7 +1154,7 @@ BR2_PACKAGE_PROVIDES_HOST_LUAINTERPRETER="host-lua"
 # BR2_PACKAGE_LUAJSON is not set
 # BR2_PACKAGE_LUALOGGING is not set
 # BR2_PACKAGE_LUAOSSL is not set
-# BR2_PACKAGE_LUAPOSIX is not set
+BR2_PACKAGE_LUAPOSIX=y
 # BR2_PACKAGE_LUASEC is not set
 # BR2_PACKAGE_LUASOCKET is not set
 # BR2_PACKAGE_LUASQL_SQLITE3 is not set
