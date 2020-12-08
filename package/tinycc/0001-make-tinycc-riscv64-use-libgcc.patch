@@ -1,0 +1,11 @@
+--- tinycc-170be79a428e69582afc858cbe6d628199ca2236/lib/Makefile
++++ tinycc-170be79a428e69582afc858cbe6d628199ca2236/lib/Makefile.libgcc
+@@ -27,7 +27,7 @@ arm-libtcc1-usegcc ?= no
+ ifeq "$($(T)-libtcc1-usegcc)" "yes"
+  XCC = $(CC)
+  XAR = $(AR)
+- XFLAGS = $(CFLAGS) -fPIC -gstabs -fno-omit-frame-pointer -Wno-unused-function -Wno-unused-variable
++ XFLAGS = $(CFLAGS) -fPIC -fno-omit-frame-pointer -Wno-unused-function -Wno-unused-variable
+ endif
+ 
+ # only for native compiler
