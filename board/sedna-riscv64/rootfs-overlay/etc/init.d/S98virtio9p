@@ -4,7 +4,7 @@ TAGS_PATTERN="/sys/bus/virtio/drivers/9pnet_virtio/virtio*/mount_tag"
 INIT_PREFIX="/etc/profile.d"
 
 start() {
-	printf 'Mounting virtual file systems.\n'
+	printf 'Mounting virtual file systems: '
 	if [ 0 -lt $(ls $TAGS_PATTERN 2>/dev/null | wc -w) ]; then
 		init_lua_path="$INIT_PREFIX/00_init_lua_path.sh"
 		if [ ! -f "$init_lua_path" ]; then
@@ -14,7 +14,7 @@ start() {
 		for mount_tag in $TAGS_PATTERN
 		do
 			tag=`cat $mount_tag`
-			printf 'Mounting tag "%s".\n' "$tag"
+			# printf 'Mounting tag "%s".\n' "$tag"
 			mkdir -p "/mnt/$tag"
 			mount -t 9p -o trans=virtio,version=9p2000.L $tag "/mnt/$tag"
 
@@ -28,19 +28,21 @@ start() {
 			fi
 		done
 	fi
+	printf 'OK\n'
 	return 0
 }
 
 stop() {
-	printf 'Unmounting virtual file systems.\n'
+	printf 'Unmounting virtual file systems: '
 	if [ 0 -lt $(ls $TAGS_PATTERN 2>/dev/null | wc -w) ]; then
 		for mount_tag in $TAGS_PATTERN 
 		do
 			tag=`cat $mount_tag`
-			printf 'Unmounting tag "%s".\n' "$tag"
+			# printf 'Unmounting tag "%s".\n' "$tag"
 		umount "/mnt/$tag"
 		done
 	fi
+	printf 'OK\n'
 	return 0
 }
 
