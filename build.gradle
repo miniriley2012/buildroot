@@ -47,6 +47,7 @@ task compileBuildroot(type: Exec) {
         enabled = false
     }
     outputs.files "output/images/fw_jump.bin", "output/images/Image", "output/images/rootfs.ext2"
+    outputs.upToDateWhen { false }
 }
 
 task copyBuildrootImages(type: Copy) {
