@@ -41,7 +41,7 @@ import org.apache.tools.ant.taskdefs.condition.Os
 
 task compileBuildroot(type: Exec) {
     if (Os.isFamily(Os.FAMILY_UNIX)) {
-        commandLine "make"
+        commandLine "make clean && make"
     } else {
         logger.log(LogLevel.WARN, "Can only make buildroot on Linux. Expecting output files to have been manually placed in [output/images/].")
         enabled = false
