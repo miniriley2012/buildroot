@@ -41,12 +41,14 @@ import org.apache.tools.ant.taskdefs.condition.Os
 
 task compileBuildroot(type: Exec) {
     if (Os.isFamily(Os.FAMILY_UNIX)) {
-        commandLine "make"
+        commandLine("make", "clean")
+        commandLine("make")
     } else {
         logger.log(LogLevel.WARN, "Can only make buildroot on Linux. Expecting output files to have been manually placed in [output/images/].")
         enabled = false
     }
     outputs.files "output/images/fw_jump.bin", "output/images/Image", "output/images/rootfs.ext2"
+    outputs.upToDateWhen { false }
 }
 
 task copyBuildrootImages(type: Copy) {
