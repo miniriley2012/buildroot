@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Buildroot 2020.11-rc1-34-gdef618ad87 Configuration
+# Buildroot 2020.11-rc1-39-gd18299a883-dirty Configuration
 #
 BR2_HAVE_DOT_CONFIG=y
 BR2_HOST_GCC_AT_LEAST_4_9=y
@@ -3307,7 +3307,8 @@ BR2_PACKAGE_UTIL_LINUX_LIBUUID=y
 # BR2_PACKAGE_MC is not set
 # BR2_PACKAGE_MG is not set
 # BR2_PACKAGE_MOST is not set
-# BR2_PACKAGE_NANO is not set
+BR2_PACKAGE_NANO=y
+BR2_PACKAGE_NANO_TINY=y
 # BR2_PACKAGE_UEMACS is not set
 
 #
