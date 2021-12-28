@@ -49,13 +49,30 @@ task compileBuildroot(type: Exec) {
     outputs.upToDateWhen { false }
 }
 
+task generateLegalInfo(type: Exec) {
+    if (Os.isFamily(Os.FAMILY_UNIX)) {
+        commandLine("make", "legal-info")
+    } else {
+        enabled = false
+    }
+    outputs.dirs "output/legal-info/licenses"
+    outputs.upToDateWhen { false }
+}
+
 task copyBuildrootImages(type: Copy) {
     from compileBuildroot.outputs.files
     into "src/main/resources/generated/"
 }
 
+task copyBuildrootLicenses(type: Copy) {
+    from generateLegalInfo.outputs.files
+    into "src/main/resources/licenses/"
+}
+
 copyBuildrootImages.dependsOn(compileBuildroot)
+copyBuildrootImages.dependsOn(generateLegalInfo)
 compileJava.dependsOn(copyBuildrootImages)
+compileJava.dependsOn(copyBuildrootLicenses)
 
 publishing {
     publications {
