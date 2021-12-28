@@ -26,6 +26,13 @@ jobs:
             ~/.gradle/wrapper
           key: ubuntu-latest-gradle-${{ hashFiles('**/*.gradle*') }}
           restore-keys: ubuntu-latest-gradle-
+      - uses: actions/cache@v2
+        with:
+          path: |
+            dl
+            ~/.buildroot-ccache
+          key: ubuntu-latest-buildroot-${{ hashFiles('.config') }}
+          restore-keys: ubuntu-latest-buildroot-
       - name: Build with Gradle
         run: ./gradlew -Psemver='${{ github.event.release.tag_name }}' build
         env:
