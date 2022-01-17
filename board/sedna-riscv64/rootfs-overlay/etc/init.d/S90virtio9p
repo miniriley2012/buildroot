@@ -6,11 +6,6 @@ INIT_PREFIX="/etc/profile.d"
 start() {
 	printf 'Mounting virtual file systems: '
 	if [ 0 -lt $(ls $TAGS_PATTERN 2>/dev/null | wc -w) ]; then
-		init_lua_path="$INIT_PREFIX/00_init_lua_path.sh"
-		if [ ! -f "$init_lua_path" ]; then
-			echo 'if [ -z "$LUA_PATH" ]; then export LUA_PATH=";;"; fi' > "$init_lua_path"
-		fi
-
 		for mount_tag in $TAGS_PATTERN
 		do
 			tag=`cat $mount_tag`
@@ -22,9 +17,6 @@ start() {
 			if [ ! -f "$init_tag" ]; then
 				tag_bin="/mnt/$tag/bin"
 				echo 'export PATH="$PATH:'"$tag_bin"'"' > "$init_tag"
-
-				tag_lua="/mnt/$tag/lua"
-				echo 'export LUA_PATH="$LUA_PATH;'"$tag_lua"'/?.lua;'"$tag_lua"'/?/init.lua"' >> "$init_tag"
 			fi
 		done
 	fi
@@ -62,4 +54,6 @@ case "$1" in
 		echo "Usage: $0 {start|stop|restart|reload}"
 		exit 1
 esac
+
+exit $?
 
