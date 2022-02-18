@@ -1,5 +1,5 @@
---- tinycc-170be79a428e69582afc858cbe6d628199ca2236/lib/Makefile
-+++ tinycc-170be79a428e69582afc858cbe6d628199ca2236/lib/Makefile.libgcc
+--- tinycc-e9f59c804d41da9ba56493d5882fb75340d23c8e/lib/Makefile
++++ tinycc-e9f59c804d41da9ba56493d5882fb75340d23c8e/lib/Makefile.libgcc
 @@ -27,7 +27,7 @@ arm-libtcc1-usegcc ?= no
  ifeq "$($(T)-libtcc1-usegcc)" "yes"
   XCC = $(CC)

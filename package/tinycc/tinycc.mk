@@ -4,9 +4,7 @@
 #
 ################################################################################
 
-#TINYCC_VERSION = 2020-11-29
-#TINYCC_SITE = $(call github,fnuecke,tinycc,$(TINYCC_VERSION))
-TINYCC_VERSION = 170be79a428e69582afc858cbe6d628199ca2236
+TINYCC_VERSION = e9f59c804d41da9ba56493d5882fb75340d23c8e
 TINYCC_SITE = git://repo.or.cz/tinycc.git
 TINYCC_SITE_METHOD = git
 TINYCC_LICENSE = LGPL-2.1
@@ -36,8 +34,12 @@ define TINYCC_CONFIGURE_CMDS
 			--ar="$(TARGET_AR)" \
 			--extra-cflags="$(TINYCC_CFLAGS)" \
 			--extra-ldflags="$(TARGET_LDFLAGS)" \
+			--elfinterp=/lib/ld-musl-riscv64.so.1 \
 			--config-musl \
 			--with-libgcc \
+			--config-backtrace=no \
+			--config-bcheck=no \
+			--config-predefs=no \
 	)
 endef
 
@@ -51,6 +53,9 @@ endef
 
 define TINYCC_INSTALL_TARGET_CMDS
 	$(TARGET_MAKE_ENV) $(MAKE) DESTDIR="$(TARGET_DIR)" -C $(@D) install $(TINYCC_COMMON_FLAGS)
+	cp "$(STAGING_DIR)/lib/crt1.o" "$(TARGET_DIR)/usr/lib/crt1.o"
+	cp "$(STAGING_DIR)/lib/crti.o" "$(TARGET_DIR)/usr/lib/crti.o"
+	cp "$(STAGING_DIR)/lib/crtn.o" "$(TARGET_DIR)/usr/lib/crtn.o"
 endef
 
 $(eval $(generic-package))
